@@ -1,0 +1,20 @@
+
+
+# export paths to interpreters
+export WITH_PERL=/custom/tools/lang/release7/perl-5.32.1/bin/perl
+export WITH_PYTHON=/custom/tools/lang/release7/python3.9.0/bin/python
+ 
+# export common project variables 
+export WORK=$(pwd)
+export PIWORK=$WORK
+ 
+# export project specific variables
+## name of the top_level design
+export DESIGN="i2c_alu"
+## VIP repository
+export SIM_VIP_DIR=$WORK/verif/ip
+## design IP repository
+export DESIGN_IP_DIR=$WORK/design/ip
+## all Cadence tools shall be 64b versions
+export CDS_AUTO_64BIT=ALL
+

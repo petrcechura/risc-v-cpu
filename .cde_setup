@@ -1,0 +1,186 @@
+################################################################################
+# Usage tips cde_setup flow:
+# Tools are enabled by defining the associated ON_<tool> environment variable.
+# Usually, one will want the default supported version, but the system also
+# allows to specify specific versions. To get a list of which specific versions
+# are available for a certain tool, use the command 'shellGetRevList <tool>',
+# e.g. 'shellGetRevList calibre'
+#
+# examples for tool enablement:
+# - Select the default Cadence SPECTRE package:
+#   export ON_SPECTRE=t
+# - Select a specific SPECTRE version (needs to be the exact version string as
+#     returned by the 'shellGetRevList' command):
+#   export ON_SPECTRE=spectre18.10.143.isr1
+# - Select a custom SPECTRE version installed in /my_install_path/spectre18.10.235.isr3:
+#   export ON_SPECTRE=spectre18.10.235.isr3,/my_install_path
+################################################################################
+
+
+
+# Custom tools
+
+#export ON_ACCESS=t
+#export ON_CDETOOLS=t
+#export ON_MSD=t
+#export ON_TAMTAM=t
+#export ON_MIST=t
+#export ON_RDP=t
+
+# Cadence tools
+
+#export ON_ANLS=t
+#export ON_ASSURA=t
+#export ON_CONFORMAL=t
+#export ON_DDI=t
+#export ON_ET=t
+#export ON_ETS=t
+#export ON_EXT=t 
+#export ON_GENUS=t
+#export ON_ICADV=t
+#export ON_INNOVUS=t
+#export ON_JASPERGOLD=t
+#export ON_JOULES=t
+#export ON_LIBERATE=t
+#export ON_MDV=t
+#export ON_PVE=t
+#export ON_PVS=t
+#export ON_SPB=t
+#export ON_SPECTRE=t
+#export ON_SSV=t
+#export ON_SIGRITY=t
+export ON_VMANAGER=t
+export ON_XCELIUM=t
+
+# Mentor Tools
+
+# To use  ON_AMSV variable replaces afs, adms, eldo
+#export ON_AMSV=t
+#export ON_APRISA=t
+#export ON_BLUEWAVE=t
+#export ON_CALIBRE=t
+#export ON_DFT_MENTOR=t
+#export ON_EXPEDITION=t
+#export ON_FORMALPRO=t
+#export ON_FLOTHERM=t
+#export ON_HDL_DESIGNER=t
+#export ON_CATAPULT=t
+#export ON_HYPERLYNX_SIPI=t
+#export ON_ICFLOW=t
+#export ON_MLCHAR=t
+#export ON_MPOWER=t
+#export ON_OASYS=t
+#export ON_NITRO=t
+#export ON_OLYMPUS=t
+#export ON_POWERPRO=t
+#export ON_PRECISION=t
+#export ON_PYXIS=t
+export ON_QUESTA=2022.4_1
+#export ON_QUESTACDC=t
+#export ON_QUESTAVIP=t
+#export ON_VIQ=t
+#export ON_REQTRACER=t
+#export ON_SDE=t
+#export ON_TESSENT=t
+#export ON_VARDES=t
+#export ON_VISUALIZER=t
+#export ON_VELOCE=t
+
+# Synopsys tools
+
+#export ON_ASIP_PROGRAMMER=t
+#export ON_ASTRO=t
+#export ON_CATS=t
+#export ON_CORETOOLS=t
+#export ON_COSMOSCOPE=t
+#export ON_COVERITY=t
+#export ON_CUSTOMCOMPILER=t
+#export ON_CUSTOMDESIGNER=t
+#export ON_CUSTOMEXPLORER=t
+#export ON_ELV=t
+#export ON_EMBEDIT=t
+#export ON_FINESIM=t
+#export ON_FORMALITY=t
+#export ON_FUSIONCOMPILER=t
+#export ON_HERCULES=t
+#export ON_HSPICE=t
+#export ON_HSIM=t
+#export ON_ICCOMPILER=t
+#export ON_ICC2=t
+#export ON_ICVALIDATOR=t
+#export ON_SIWB=t
+#export ON_KNIGHTS=t
+#export ON_LEDA=t
+#export ON_LIBRARYCOMPILER=t
+#export ON_METAWARE=t
+#export ON_MILKYWAY=t
+#export ON_NANOSIM=t
+#export ON_NCX=t
+#export ON_POWERFAULT=t
+#export ON_PRIMELIB=t
+#export ON_PRIMEPOWER=t
+#export ON_PRIMERAIL=t
+#export ON_PRIMESIM=t
+#export ON_PRIMETIME=t
+#export ON_PROTEUS=t
+#export ON_PROTEUS_WB=t
+#export ON_PROGEN=t
+#export ON_SILICONSMART=t
+#export ON_SPYGLASS=t
+#export ON_VCSPYGLASS=t
+#export ON_SYNOPSYS=t
+#export ON_SYNPLICITY=t
+#export ON_STAR=t
+#export ON_TETRAMAX=t
+#export ON_VCS=t
+#export ON_VC_VIP_LIB=t
+#export ON_VERDI=t
+#export ON_VTRAN=t
+#export ON_XA=t
+#export ON_YIELD_EXPLORER=t
+#export ON_ZOIX=t
+#export ON_TCAD=t
+
+#Other EDA tools
+
+#export ON_ANSYS=t	# This is for Ansys Structures.
+#export ON_ANSYSEM=t	# This is for Ansys/Ansoft Electronics, such as HFSS, Q3D and etc.
+#export ON_ADS=t	# This is for Keysight ADS2019 and newer.  For older version of ADS, enable ON_AGILENT
+#export ON_AGILENT=t
+#export ON_AGILENT_EMPRO=t
+#export ON_ALPS=t
+#export ON_DVT=t
+#export ON_CLIOSOFT=t
+#export ON_EBVIEW=t
+#export ON_ESP=t
+#export ON_F3D=t
+#export ON_R3D=t
+#export ON_FDTD=t
+#export ON_FISHTAIL=t
+#export ON_GOLDENGATE=t
+#export ON_ICCAP=t
+#export ON_IDS=t
+#export ON_INTERRA_MC=t
+#export ON_KLAYOUT=t
+#export ON_MATLAB=t
+#export ON_MAGWEL_PTM=t
+#export ON_MAGWEL_SPX=t
+#export ON_MAGWEL_RNI=t
+#export ON_MQA=t
+#export ON_NASSDA=t
+#export ON_PARAVIEW=t
+#export ON_QSI=t
+#export ON_QUARTUS=t
+#export ON_RFDE=t
+#export ON_SKILLCAD=t
+#export ON_SONNET=t
+#export ON_SOURCEIII=t
+#export ON_STARVISION=t
+#export ON_TSMC_MC=t
+#export ON_VERIFIER=t
+#export ON_VELOCERF=t
+#export ON_VIRAGE=t
+#export ON_VNCOVER=t
+#export ON_WICKED=t
+#export ON_XILINX_SDK=t
+#export ON_XILINX_VIVADO=t
