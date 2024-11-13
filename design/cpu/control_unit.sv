@@ -128,6 +128,38 @@ module control_unit#(
   logic[REG_SIZE-1:0] pc_d;
   logic[REG_SIZE-1:0] ads_d;
 
+  // RISC-V registers
+  logic[REG_SIZE-1:0] x1;
+  logic[REG_SIZE-1:0] x2;
+  logic[REG_SIZE-1:0] x3;
+  logic[REG_SIZE-1:0] x4;
+  logic[REG_SIZE-1:0] x5;
+  logic[REG_SIZE-1:0] x6;
+  logic[REG_SIZE-1:0] x7;
+  logic[REG_SIZE-1:0] x8;
+  logic[REG_SIZE-1:0] x9;
+  logic[REG_SIZE-1:0] x10;
+  logic[REG_SIZE-1:0] x11;
+  logic[REG_SIZE-1:0] x12;
+  logic[REG_SIZE-1:0] x13;
+  logic[REG_SIZE-1:0] x14;
+  logic[REG_SIZE-1:0] x15;
+  logic[REG_SIZE-1:0] x16;
+  logic[REG_SIZE-1:0] x17;
+  logic[REG_SIZE-1:0] x18;
+  logic[REG_SIZE-1:0] x19;
+  logic[REG_SIZE-1:0] x20;
+  logic[REG_SIZE-1:0] x21;
+  logic[REG_SIZE-1:0] x22;
+  logic[REG_SIZE-1:0] x23;
+  logic[REG_SIZE-1:0] x24;
+  logic[REG_SIZE-1:0] x25;
+  logic[REG_SIZE-1:0] x26;
+  logic[REG_SIZE-1:0] x27;
+  logic[REG_SIZE-1:0] x28;
+  logic[REG_SIZE-1:0] x29;
+  logic[REG_SIZE-1:0] x30;
+  logic[REG_SIZE-1:0] x31;
 
   // === memory driver ===
   //======================

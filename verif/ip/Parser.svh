@@ -1,4 +1,4 @@
-class Parser#(parameter int OPCODE_SIZE = 32);
+virtual class Parser#(parameter int OPCODE_SIZE = 7);
 
   function new;
     make_map();
@@ -9,64 +9,80 @@ class Parser#(parameter int OPCODE_SIZE = 32);
 
   protected int end_of_program;
 
-  // instructions
-  typedef enum logic[4-1:0] {
-    // do nothing
-    NOP = 4'b0000,
-    // [JMP|line|0|0]
-    // jump to `line` (set pc to `line`)
-    JMP = 4'b0001,
-    // [ADD|op1|op2|addr]
-    // add `op1` and `op2`, store it to `addr`
-    ADD = 4'b0010,
-    // [SUB|op1|op2|addr]
-    // sub `op1` and `op2`, store it to `addr`
-    SUB = 4'b0011,
-    // [MUL|op1|op2|addr]
-    // mul `op1` and `op2`, store it to `addr`
-    MUL = 4'b0100,
-    // [DIV|op1|op2|addr]
-    // div `op1` and `op2`, store it to `addr`
-    DIV = 4'b0101,
-    // [BRE|expr|line|0]
-    // if `expr` is non-0, jmp to `line`
-    BRE = 4'b0110,
-    // [MOV|addr1|addr1|0]
-    // move data from `addr1` to `addr2` (actually, copy them)
-    MOV = 4'b0111,
-    // [SET|addr|value|0]
-    // set data on `addr` to `value`
-    AND = 4'b1000,
-    ORR = 4'b1001,
-    XOR = 4'b1010,
-    SET = 4'b1011,
-    CLC = 4'b1100
-  } ins_e;
-
-
-  ins_e place_map[string];
-
   /**
-   * An auxiliary function that creates a {str/array} dictionary from values
-   * inside Enum type `ins_e`. Key represents enum variable in string form,
-   * value is its opcode.
-   *
-   * Example: {"NOP": 0000, "MOV": 0111, ...}
-   */
-  function void make_map;
-    ins_e ins;
-        ins = ins.first();
-        do begin
-          place_map[ins.name()]=ins;
-           ins = ins.next();
-        end while (ins != ins.first());
-  endfunction: make_map
+  * This is an auxiliary associative array that stores instructions and their
+  * opcodes for RV32I Base Instruction Set.
+  *
+  * The format is [987|6543210]
+  *                 |     |
+  *               funct3 opcode
+  * */
+  protected logic[OPCODE_SIZE-1:0] instructions[string] =
+    '{"LUI" :     10'bxxx0110111,
+      "AUIPC" :   10'bxxx0010111,
+      "JAL" :     10'bxxx1101111,
+      "JALR" :    10'b0001100111,
+      "BEQ" :     10'b0001100011,
+      "BNE" :     10'b0011100011,
+      "BLT" :     10'b1001100011,
+      "BGE" :     10'b1011100011,
+      "BLTU" :    10'b1101100011,
+      "BGEU" :    10'b1111100011,
+      "LB" :      10'b0000000011,
+      "LH" :      10'b0010000011,
+      "LW" :      10'b0100000011,
+      "LBU" :     10'b1000000011,
+      "LHU" :     10'b1010000011,
+      "SB" :      10'b0000100011,
+      "SH" :      10'b0010100011,
+      "SW" :      10'b0100100011,
+      "ADDI" :    10'b0000010011,
+      "SLTI" :    10'b0100010011,
+      "SLTIU" :   10'b0110010011,
+      "XORI" :    10'b1000010011,
+      "ORI" :     10'b1100010011,
+      "ANDI" :    10'b1110010011,
+      "SLLI" :    10'b0010010011,
+      "SRLI" :    10'b1010010011,
+      "SRAI" :    10'b1010010011,
+      "ADD" :     10'b0000110011,
+      "SUB" :     10'b0000110011,
+      "SLL" :     10'b0010110011,
+      "SLT" :     10'b0100110011,
+      "SLTU" :    10'b0110110011,
+      "XOR" :     10'b1000110011,
+      "SRL" :     10'b1010110011,
+      "SRA" :     10'b1010110011,
+      "OR" :      10'b1100110011,
+      "AND" :     10'b1110110011,
+      "FENCE" :   10'b0000001111,
+      "FENCE.I" : 10'b0010001111,
+      "ECALL" :   10'b0001110011,
+      "EBREAK" :  10'b0001110011,
+      "CSRRW" :   10'b0011110011,
+      "CSRRS" :   10'b0101110011,
+      "CSRRC" :   10'b0111110011,
+      "CSRRWI" :  10'b1011110011,
+      "CSRRSI" :  10'b1101110011,
+      "CSRRCI" :  10'b1101110011
+      };
 
   /**
   * Takes an assembly line as an argument, parses it and returns corresponding
   * **opcode** in logic array.
   * */
-  function logic[OPCODE_SIZE-1:0] parse_line(string line);
+
+  /** A built-in function that parses input line into an array containing
+  * instruction string in lower-case and its arguments.
+  *
+  * A function also checks whether the line has a proper format and if the
+  * first element is a valid instruction. Comments are discarded. */
+  protected virtual function string[] get_elements(string line);
+    // TODO
+  endfunction: get_elements
+
+  // TODO
+  virtual function logic[OPCODE_SIZE-1:0] parse_line(string line);
 
     logic[OPCODE_SIZE-1:0] opcode = 0;
     // aux. string var
@@ -122,6 +138,11 @@ class Parser#(parameter int OPCODE_SIZE = 32);
     return opcode;
   endfunction: parse_line
 
+  /**
+  * Reads an assembly file and parses its contents into internal array of
+  * bitstream that can be used to program cpu via verification tools.
+  *
+  * Returns 1'b0 if reading was succesfull, 1'b1 otherwise. */
   function bit read_file(string fname);
     string line;
     int f = $fopen(fname, "r");
