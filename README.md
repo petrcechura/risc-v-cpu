@@ -23,6 +23,7 @@ and each of the peripherals has uniq ID that CPU can use to send/receive data to
 
 ### SYSTEM BUS 
 **definition of system bus is under consideration**
+
 Required aspects are:
 
     * parallel (ideally allowing to sample 16bit in one clock)
@@ -36,6 +37,7 @@ Candidates are:
 ### PERIPHERALS
 Inside microprocessor, there are many peripherals, separating design into multiple subsystems that communicate via
 system bus.
+
 Peripherals:
 
     * Core: The RISC-V core is bigger design unit, serving as hearth of the microprocessor. The core shall be able to 
@@ -59,6 +61,7 @@ TODO
 ## I/O 
 Inputs and outputs of procesor can be divided into several categories by their purpose and implementation
 in architecture.
+
 Categories are:
 
     * **System Bus Backdoor Interface**: microprocessor has certain pins that allows him to be controlled as 
