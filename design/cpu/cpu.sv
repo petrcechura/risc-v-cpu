@@ -1,13 +1,22 @@
 module cpu#(
   int REG_SIZE = 8
 )(
-  // CPU INTERFACE
-  // |ins|op1|op2|op3|
-  input logic[31:0] ins_in,
-  input logic cpu_set,
-  input logic clk,
-  input logic rst,
-  output logic[7:0] pc
+  // CLK & RESET
+  input logic RST,
+  input logic CLK,
+
+  // SYSTEM BUS INTERFACE
+  // These interface signals the CPU uses to communicate with RAM and other
+  // peripherals on chip, using highly paralel protocol.
+  system_bus_if sys_if,
+
+  // SYSTEM BUS BACKDOOR INTERFACE
+  // Some of the inputs are designed to backdoor system bus interface to
+  // provide a way to program CPU. Hence using following signals, CPU can be
+  // driven from "outside world" to either stop it's execution, prepare for
+  // programming or other actions
+  system_bus_backdoor_if sys_backdoor_if
+
 );
 
   // alu <-> control unit
