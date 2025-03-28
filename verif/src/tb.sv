@@ -1,6 +1,6 @@
 `timescale 1ns/1ps
 
-`include "../ip/Parser.svh"
+`include "../ip/Asm2Bin.svh"
 
 module tb;
 
@@ -12,8 +12,8 @@ module tb;
   logic[7:0]  pc;
   logic cpu_set;
 
-  Parser p;
-  logic[31:0] instructions[];
+  Asm2Bin asm2bin;
+  logic[31:0] instructions[$];
 
   cpu dut (
     .ins_in(ins),
@@ -27,7 +27,7 @@ module tb;
     ins = 0;
     #5ns;
     cpu_set = 1;
-    while (pc <= p.get_end()) begin
+    while (pc <= instructions.size()) begin
       ins = instructions[int'(pc)];
       #2ns;
     end
@@ -42,9 +42,13 @@ module tb;
 
   initial begin
     // read `asm.txt` file
-    p = new;
-    void'(p.read_file("src/asm/test.asm"));
-    instructions = p.get_instructions();
+    asm2bin = new;
+    void'(asm2bin.readFile("src/asm/test.asm"));
+    instructions = asm2bin.getInsBuffer();
+
+    foreach (instructions[i]) begin
+      $display("%0b", instructions[i]);
+    end
 
     #1ns;
 
@@ -61,7 +65,7 @@ module tb;
 
     $display("TEST STARTED!");
 
-    run();
+    //run();
 
     #100ns;
 

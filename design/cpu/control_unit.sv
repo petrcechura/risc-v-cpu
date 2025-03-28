@@ -3,6 +3,7 @@ module control_unit#(
   logic ACTIVE_RESET = 1'b1
 )
 (
+
   // === I/O ===
   // ===========
   input logic clk,
@@ -129,6 +130,7 @@ module control_unit#(
   logic[REG_SIZE-1:0] ads_d;
 
   // RISC-V registers
+  logic[REG_SIZE-1:0] x0;
   logic[REG_SIZE-1:0] x1;
   logic[REG_SIZE-1:0] x2;
   logic[REG_SIZE-1:0] x3;
