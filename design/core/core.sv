@@ -1,4 +1,4 @@
-module cpu#(
+module core#(
   int REG_SIZE = 8
 )(
   // CLK & RESET
@@ -9,14 +9,6 @@ module cpu#(
   // These interface signals the CPU uses to communicate with RAM and other
   // peripherals on chip, using highly paralel protocol.
   system_bus_if sys_if,
-
-  // SYSTEM BUS BACKDOOR INTERFACE
-  // Some of the inputs are designed to backdoor system bus interface to
-  // provide a way to program CPU. Hence using following signals, CPU can be
-  // driven from "outside world" to either stop it's execution, prepare for
-  // programming or other actions
-  system_bus_backdoor_if sys_backdoor_if
-
 );
 
   // alu <-> control unit

@@ -72,6 +72,7 @@ class Asm2Bin;
       "AND"  : 32'b0000000xxxxxxxxxx111xxxxx0110011
   };
 
+  // A list of all instructions that are I type by RISC-V spec (RV32I)
   protected ins_t instIType[string] = '{
       "JALR" : 32'bxxxxxxxxxxxxxxxxx000xxxxx1100111,
       "LB"   : 32'bxxxxxxxxxxxxxxxxx000xxxxx0000011,
@@ -87,12 +88,14 @@ class Asm2Bin;
       "ANDI" : 32'bxxxxxxxxxxxxxxxxx111xxxxx0010011
   };
 
+  // A list of all instructions that are S type by RISC-V spec (RV32I)
   protected ins_t instSType[string] = '{
       "SB"   : 32'bxxxxxxxxxxxxxxxxx000xxxxx0100011,
       "SH"   : 32'bxxxxxxxxxxxxxxxxx001xxxxx0100011,
       "SW"   : 32'bxxxxxxxxxxxxxxxxx010xxxxx0100011
   };
 
+  // A list of all instructions that are B type by RISC-V spec (RV32I)
   protected ins_t instBType[string] = '{
       "BEQ"  : 32'bxxxxxxxxxxxxxxxxx000xxxxx1100011,
       "BNE"  : 32'bxxxxxxxxxxxxxxxxx001xxxxx1100011,
@@ -102,11 +105,13 @@ class Asm2Bin;
       "BGEU" : 32'bxxxxxxxxxxxxxxxxx111xxxxx1100011
   };
 
+  // A list of all instructions that are U type by RISC-V spec (RV32I)
   protected ins_t instUType[string] = '{
       "LUI"  : 32'bxxxxxxxxxxxxxxxxxxxxxxxxx0110111,
       "AUIPC": 32'bxxxxxxxxxxxxxxxxxxxxxxxxx0010111
   };
 
+  // A list of all instructions that are J type by RISC-V spec (RV32I)
   protected ins_t instJType[string] = '{
       "JAL"  : 32'bxxxxxxxxxxxxxxxxxxxxxxxxx1101111
   };
@@ -196,6 +201,8 @@ class Asm2Bin;
     // for each character in a line
     foreach(line[i]) begin
       case(line[i])
+        
+        // any whitespace character is ignored
         " ": begin
           if (subs == "") begin
             str_q.push_back(subs);
@@ -204,7 +211,8 @@ class Asm2Bin;
 
         continue;
         end
-
+        
+        // characters considered as end of instruction
         "\\n" || ";" : begin
           break;
         end
@@ -216,7 +224,9 @@ class Asm2Bin;
     end
 
   endfunction: parseLine
-
+  
+  /** This function the the instruction in `string` format and parses it into corr.
+    * binary representation according to RISC-V spec. (RV32I) */
   function ins_t asmLine(string line);
     automatic str_queue_t str_queue = parseLine(line);
     automatic ins_t ins = '0;
@@ -249,7 +259,8 @@ class Asm2Bin;
 
 
   /** Reads the entire file containg an assembly code. Stores instructions
-    * into separated buffer.*/
+    * into separated buffer.
+    */
   function bit readFile(string fname);
     string line;
     int f = $fopen(fname, "r");
