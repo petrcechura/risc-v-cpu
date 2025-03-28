@@ -24,10 +24,12 @@ and each of the peripherals has uniq ID that CPU can use to send/receive data to
 ### SYSTEM BUS 
 **definition of system bus is under consideration**
 Required aspects are:
+
     * parallel (ideally allowing to sample 16bit in one clock)
     * supporting addressing (so every peripheral can be addressed)
     * master-slave topology (CPU is the master, peripherals slaves)
 Candidates are:
+
     * SPI16
     * PCI
 
@@ -35,6 +37,7 @@ Candidates are:
 Inside microprocessor, there are many peripherals, separating design into multiple subsystems that communicate via
 system bus.
 Peripherals:
+
     * Core: The RISC-V core is bigger design unit, serving as hearth of the microprocessor. The core shall be able to 
             perform every RISC-V instruction from RV32I set. Core communicates with System Bus master, to access 
             other peripherals like RAM or PORTs. 
@@ -57,6 +60,7 @@ TODO
 Inputs and outputs of procesor can be divided into several categories by their purpose and implementation
 in architecture.
 Categories are:
+
     * **System Bus Backdoor Interface**: microprocessor has certain pins that allows him to be controlled as 
         somewhat slave via separated I2C bus. This communication is one-side only, microprocessor does not 
         answer, just listens and does as is said to do.
